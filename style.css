@@ -78,6 +78,7 @@ section {
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    overflow: hidden;  /* Ensures content stays within the box */
 }
 
 .news-item:hover {
@@ -91,23 +92,19 @@ section {
     margin: 0 0 10px;
 }
 
-.news-item p {
+.news-item p.summary {
     margin: 10px 0;
     color: #ccc;
     font-size: 14px;
     text-align: justify;
-    flex-grow: 1;  /* Ensures text can grow to take up available space without overflowing */
-    overflow: hidden;  /* Hides overflowing text for longer descriptions */
-    text-overflow: ellipsis;  /* Adds ellipsis for longer content */
-    height: 100px; /* Set a max height to ensure consistent layout */
-    position: relative;
 }
 
-/* Initially, hide the full content */
 .news-full-content {
     display: none;
     color: #fff;
     margin-top: 10px;
+    font-size: 14px;
+    text-align: justify;
 }
 
 .news-item:hover .news-full-content {
@@ -163,10 +160,8 @@ footer p {
     margin: 0;
 }
 
-#guides, #about {
-    background-color: #333;
-}
-
-#guides h2, #about h2 {
-    color: #ffcc00;
+@media (max-width: 768px) {
+    .news-item {
+        max-width: 100%;
+    }
 }
