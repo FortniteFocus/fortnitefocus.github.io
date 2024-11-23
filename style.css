@@ -74,6 +74,9 @@ section {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .news-item:hover {
@@ -95,6 +98,9 @@ section {
     color: #ccc;
     font-size: 14px;
     text-align: justify;
+    flex-grow: 1;  /* Ensures text can grow to take up available space without overflowing */
+    overflow: hidden;  /* Hides overflowing text for longer descriptions */
+    text-overflow: ellipsis;  /* Adds ellipsis for longer content */
 }
 
 .news-item img {
