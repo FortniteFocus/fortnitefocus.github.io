@@ -7,46 +7,59 @@
     <title>Fortnite Focus</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        // Fetching the Fortnite news API and displaying the motds data
+        // Fetching the Fortnite news API and displaying the data
         fetch('https://fortnite-api.com/v2/news')
             .then(response => response.json())
             .then(data => {
-                console.log(data);  // Log the data to inspect its structure
+                if (data && data.data && data.data.br && data.data.br.motds) {
+                    const mainTitle = document.getElementById('main-news-title');
+                    const mainImage = document.getElementById('main-news-image');
+                    const mainBody = document.getElementById('main-news-body');
+                    const mainLink = document.getElementById('main-news-link');
+                    const thumbnailsContainer = document.getElementById('news-thumbnails');
 
-                // Navigate to the motds array within object ► data ► br ► motds
-                const motds = data?.data?.br?.motds;
+                    // Clear previous thumbnails (if any)
+                    thumbnailsContainer.innerHTML = '';
 
-                if (Array.isArray(motds)) {  // Check if motds is an array
-                    const container = document.getElementById('news-container');
-                    
-                    // Clear previous news (if any)
-                    container.innerHTML = '';
-
-                    // Loop through the motds array and display each item
-                    motds.forEach(item => {
-                        const div = document.createElement('div');
-                        div.classList.add('news-item');
-                        div.setAttribute('aria-labelledby', item.title);
-
-                        // Creating an item for each news
-                        div.innerHTML = `
-                            <h3 id="title-${item.id}">${item.title}</h3>
-                            <p>${item.body}</p>
+                    // Populate thumbnails
+                    data.data.br.motds.forEach((item, index) => {
+                        // Create a thumbnail div for each item
+                        const thumbnailDiv = document.createElement('div');
+                        thumbnailDiv.classList.add('news-item-thumbnail');
+                        
+                        // Set thumbnail content
+                        thumbnailDiv.innerHTML = `
                             <img src="${item.image}" alt="${item.title}">
                         `;
                         
-                        container.appendChild(div);
+                        // Add click event to show the item in main display
+                        thumbnailDiv.addEventListener('click', () => {
+                            mainTitle.textContent = item.title;
+                            mainImage.src = item.image;
+                            mainBody.textContent = item.body;
+                            mainLink.href = item.url;
+                            mainLink.style.display = 'block';
+                        });
+
+                        // Append the thumbnail to the container
+                        thumbnailsContainer.appendChild(thumbnailDiv);
+
+                        // Set the first item as the initial main display
+                        if (index === 0) {
+                            mainTitle.textContent = item.title;
+                            mainImage.src = item.image;
+                            mainBody.textContent = item.body;
+                            mainLink.href = item.url;
+                            mainLink.style.display = 'block';
+                        }
                     });
                 } else {
-                    const container = document.getElementById('news-container');
-                    container.innerHTML = `<p>No news available at the moment. Please check back later.</p>`;
-                    console.error("Invalid data format for motds");
+                    document.getElementById('news-thumbnails').innerHTML = '<p>No news available at the moment.</p>';
                 }
             })
             .catch(error => {
                 console.error('Error fetching news:', error);
-                const container = document.getElementById('news-container');
-                container.innerHTML = `<p>There was an error loading the news. Please try again later.</p>`;
+                document.getElementById('news-thumbnails').innerHTML = '<p>There was an error loading the news. Please try again later.</p>';
             });
     </script>
 </head>
@@ -74,8 +87,18 @@
         <section id="news">
             <h2>Latest News</h2>
             <p>Check out the most recent updates and patches in Fortnite.</p>
-            <div id="news-container">
-                <!-- News data from API will be dynamically loaded here -->
+            
+            <!-- Main news display area -->
+            <div id="main-news-display">
+                <h3 id="main-news-title">Select a news item</h3>
+                <img id="main-news-image" src="" alt="News Image" />
+                <p id="main-news-body">Click on a thumbnail to see more details.</p>
+                <a id="main-news-link" href="#" target="_blank" rel="noopener noreferrer">Read more</a>
+            </div>
+
+            <!-- Thumbnail grid -->
+            <div id="news-thumbnails">
+                <!-- News thumbnails from API will be dynamically loaded here -->
             </div>
         </section>
 
