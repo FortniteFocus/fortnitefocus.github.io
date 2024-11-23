@@ -5,28 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fortnite Focus - Your Go-To Source for Fortnite News, Updates, and Guides.">
     <title>Fortnite Focus</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fortnitefocus.github.io/style.css">
     <script>
         // Fetching the Fortnite news API and displaying the data
         fetch('https://fortnite-api.com/v2/news')
             .then(response => response.json())
             .then(data => {
-                const container = document.getElementById('news-container');
-                
-                // Loop through the news data and display it
-                data.data.forEach(item => {
-                    const div = document.createElement('div');
-                    div.classList.add('news-item');
+                console.log(data);  // Log the data to inspect its structure
 
-                    // Creating an item for each news
-                    div.innerHTML = `
-                        <h3>${item.title}</h3>
-                        <p>${item.body}</p>
-                        <p><a href="${item.url}" target="_blank">Read more</a></p>
-                    `;
+                if (data && Array.isArray(data.data)) {  // Check if data.data is an array
+                    const container = document.getElementById('news-container');
                     
-                    container.appendChild(div);
-                });
+                    // Loop through the news data and display it
+                    data.data.forEach(item => {
+                        const div = document.createElement('div');
+                        div.classList.add('news-item');
+
+                        // Creating an item for each news
+                        div.innerHTML = `
+                            <h3>${item.title}</h3>
+                            <p>${item.body}</p>
+                            <p><a href="${item.url}" target="_blank">Read more</a></p>
+                        `;
+                        
+                        container.appendChild(div);
+                    });
+                } else {
+                    console.error("Invalid data format");
+                }
             })
             .catch(error => console.error('Error fetching news:', error));
     </script>
