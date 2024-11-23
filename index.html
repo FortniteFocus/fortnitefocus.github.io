@@ -5,52 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortnite Focus</title>
     <script>
-        // Fetching the JSON file and displaying the data
-        fetch('path/to/your/data.json')
+        // Fetching the Fortnite news API and displaying the data
+        fetch('https://fortnite-api.com/v2/news')
             .then(response => response.json())
             .then(data => {
                 const container = document.getElementById('data-container');
                 
-                // Loop through the JSON data and display it
+                // Loop through the news data and display it
                 data.data.forEach(item => {
                     const div = document.createElement('div');
-                    div.classList.add('game-item');
+                    div.classList.add('news-item');
 
-                    // Creating an item for each game
+                    // Creating an item for each news
                     div.innerHTML = `
-                        <h3>${item.name}</h3>
-                        <p>Path: <a href="${item.path}" target="_blank">${item.path}</a></p>
+                        <h3>${item.title}</h3>
+                        <p>${item.body}</p>
+                        <p><a href="${item.url}" target="_blank">Read more</a></p>
                     `;
                     
                     container.appendChild(div);
                 });
             })
-            .catch(error => console.error('Error fetching JSON:', error));
+            .catch(error => console.error('Error fetching news:', error));
     </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 20px;
-        }
-        .game-item {
-            background-color: #fff;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h3 {
-            margin: 0 0 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>Fortnite Focus - Game Data</h1>
+    <h1>Fortnite Focus - Latest News</h1>
     <div id="data-container">
-        <!-- Data from JSON will be loaded here -->
+        <!-- Data from Fortnite API will be loaded here -->
     </div>
 
 </body>
