@@ -77,6 +77,7 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 .news-item:hover {
@@ -88,9 +89,6 @@ section {
     color: #ffcc00;
     font-size: 20px;
     margin: 0 0 10px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 .news-item p {
@@ -105,14 +103,14 @@ section {
     position: relative;
 }
 
-.news-item p.read-more {
+/* Initially, hide the full content */
+.news-full-content {
     display: none;
     color: #fff;
     margin-top: 10px;
-    font-size: 14px;
 }
 
-.news-item p.show-read-more {
+.news-item:hover .news-full-content {
     display: block;
 }
 
