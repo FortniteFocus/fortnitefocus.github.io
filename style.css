@@ -101,6 +101,19 @@ section {
     flex-grow: 1;  /* Ensures text can grow to take up available space without overflowing */
     overflow: hidden;  /* Hides overflowing text for longer descriptions */
     text-overflow: ellipsis;  /* Adds ellipsis for longer content */
+    height: 100px; /* Set a max height to ensure consistent layout */
+    position: relative;
+}
+
+.news-item p.read-more {
+    display: none;
+    color: #fff;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.news-item p.show-read-more {
+    display: block;
 }
 
 .news-item img {
@@ -152,23 +165,10 @@ footer p {
     margin: 0;
 }
 
-@media (max-width: 768px) {
-    nav ul {
-        gap: 10px;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .news-item {
-        max-width: 100%;
-        width: 100%;
-    }
-    
-    h1, h2 {
-        font-size: 20px;
-    }
-    
-    .news-item h3 {
-        font-size: 18px;
-    }
+#guides, #about {
+    background-color: #333;
+}
+
+#guides h2, #about h2 {
+    color: #ffcc00;
 }
