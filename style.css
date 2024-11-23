@@ -75,6 +75,7 @@ section {
     max-width: 350px;
     position: relative;
     cursor: pointer;
+    padding: 10px;
 }
 
 .news-item:hover {
@@ -113,7 +114,7 @@ h3 {
     color: #fff;
 }
 
-.news-item p.summary {
+.news-item .short-text {
     color: #ccc;
     font-size: 14px;
     text-align: justify;
@@ -121,14 +122,13 @@ h3 {
     line-height: 1.4;
     max-height: 60px;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
 }
 
-.news-item:hover p.summary {
-    opacity: 1;
-    transform: translateY(0);
+.news-item:hover .short-text {
+    opacity: 0;
+    max-height: 0;
 }
 
 .news-full-content {
@@ -138,15 +138,17 @@ h3 {
     color: #fff;
     text-align: justify;
     line-height: 1.4;
+    max-height: 300px;
     opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, max-height 0.5s ease-in-out;
 }
 
 .news-item:hover .news-full-content {
     display: block;
     opacity: 1;
     transform: translateY(0);
+    max-height: 300px;
 }
 
 footer {
