@@ -18,11 +18,13 @@
                         const div = document.createElement('div');
                         div.classList.add('news-item');
                         div.innerHTML = `
+                            <div class="news-image">
+                                <img src="${item.image}" alt="${item.title}">
+                            </div>
                             <h3>${item.title}</h3>
                             <p class="summary">${item.body.substring(0, 100)}...</p>
                             <div class="news-full-content">
                                 <p>${item.body}</p>
-                                <img src="${item.image}" alt="${item.title}">
                             </div>
                         `;
                         container.appendChild(div);
