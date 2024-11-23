@@ -98,9 +98,10 @@ h1, h2 {
     font-size: 14px;
     text-align: justify;
     line-height: 1.4;
+    height: 60px;
+    overflow: hidden;
 }
 
-/* Full Content Hidden Initially */
 .news-full-content {
     display: none;
     color: #fff;
@@ -112,6 +113,8 @@ h1, h2 {
 
 .news-item:hover .news-full-content {
     display: block;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .news-item img {
@@ -126,22 +129,6 @@ h1, h2 {
 
 .news-item img:hover {
     opacity: 0.9;
-}
-
-/* Button */
-.read-more-btn {
-    background-color: #00bfff;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-}
-
-.read-more-btn:hover {
-    background-color: #008fcc;
 }
 
 /* Footer */
