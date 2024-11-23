@@ -17,9 +17,8 @@
                     motds.forEach(item => {
                         const div = document.createElement('div');
                         div.classList.add('news-item');
-                        div.setAttribute('aria-labelledby', item.title);
                         div.innerHTML = `
-                            <h3 id="title-${item.id}">${item.title}</h3>
+                            <h3>${item.title}</h3>
                             <p class="summary">${item.body.substring(0, 100)}...</p>
                             <div class="news-full-content">
                                 <p>${item.body}</p>
