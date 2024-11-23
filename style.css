@@ -78,7 +78,6 @@ section {
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    overflow: hidden;  /* Ensures content stays within the box */
 }
 
 .news-item:hover {
@@ -97,6 +96,7 @@ section {
     color: #ccc;
     font-size: 14px;
     text-align: justify;
+    line-height: 1.4;
 }
 
 .news-full-content {
@@ -105,6 +105,7 @@ section {
     margin-top: 10px;
     font-size: 14px;
     text-align: justify;
+    line-height: 1.4;
 }
 
 .news-item:hover .news-full-content {
