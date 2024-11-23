@@ -7,34 +7,47 @@
     <title>Fortnite Focus</title>
     <link rel="stylesheet" href="https://fortnitefocus.github.io/style.css">
     <script>
-        // Fetching the Fortnite news API and displaying the data
+        // Fetching the Fortnite news API and displaying the motds data
         fetch('https://fortnite-api.com/v2/news')
             .then(response => response.json())
             .then(data => {
                 console.log(data);  // Log the data to inspect its structure
 
-                if (data && Array.isArray(data.data)) {  // Check if data.data is an array
+                // Navigate to the motds array within object ► data ► br ► motds
+                const motds = data?.data?.br?.motds;
+
+                if (Array.isArray(motds)) {  // Check if motds is an array
                     const container = document.getElementById('news-container');
                     
-                    // Loop through the news data and display it
-                    data.data.forEach(item => {
+                    // Clear previous news (if any)
+                    container.innerHTML = '';
+
+                    // Loop through the motds array and display each item
+                    motds.forEach(item => {
                         const div = document.createElement('div');
                         div.classList.add('news-item');
+                        div.setAttribute('aria-labelledby', item.title);
 
                         // Creating an item for each news
                         div.innerHTML = `
-                            <h3>${item.title}</h3>
+                            <h3 id="title-${item.id}">${item.title}</h3>
                             <p>${item.body}</p>
-                            <p><a href="${item.url}" target="_blank">Read more</a></p>
+                            <img src="${item.image}" alt="${item.title}">
                         `;
                         
                         container.appendChild(div);
                     });
                 } else {
-                    console.error("Invalid data format");
+                    const container = document.getElementById('news-container');
+                    container.innerHTML = `<p>No news available at the moment. Please check back later.</p>`;
+                    console.error("Invalid data format for motds");
                 }
             })
-            .catch(error => console.error('Error fetching news:', error));
+            .catch(error => {
+                console.error('Error fetching news:', error);
+                const container = document.getElementById('news-container');
+                container.innerHTML = `<p>There was an error loading the news. Please try again later.</p>`;
+            });
     </script>
 </head>
 <body>
