@@ -4,41 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Fortnite Focus - Your Go-To Source for Fortnite News, Updates, and Shop.">
+    <meta name="author" content="Fortnite Focus Team">
+    <meta property="og:title" content="Fortnite Focus - Latest Fortnite News and Shop">
+    <meta property="og:description" content="Stay up-to-date with the latest news, updates, and Fortnite shop items at Fortnite Focus.">
+    <meta property="og:image" content="https://i.ibb.co/FgrzHd1/150078687-s-400-u-b1132aa2b336debc88472d7fc9fa71630b33bf18-v-4.png">
+    <meta property="og:url" content="https://fortnitefocus.github.io/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@FortniteFocus">
+    <meta name="twitter:title" content="Fortnite Focus">
+    <meta name="twitter:description" content="Your go-to source for Fortnite news, updates, and shop items.">
+    <meta name="twitter:image" content="https://i.ibb.co/FgrzHd1/150078687-s-400-u-b1132aa2b336debc88472d7fc9fa71630b33bf18-v-4.png">
     <title>Fortnite Focus</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        // Fetch Fortnite Shop API
-        fetch('https://fortnite-api.com/v2/shop')
-            .then(response => response.json())
-            .then(data => {
-                const entries = data?.data?.entries;
-                const shopContainer = document.getElementById('shop-container');
-                
-                shopContainer.innerHTML = '';  // Clear existing items
+        document.addEventListener("DOMContentLoaded", () => {
+            // Fetch Fortnite Shop API
+            fetch('https://fortnite-api.com/v2/shop')
+                .then(response => response.json())
+                .then(data => {
+                    const entries = data?.data?.entries;
+                    const shopContainer = document.getElementById('shop-container');
+                    const loadingMessage = document.getElementById('loading-message');
 
-                // Loop through each shop item
-                entries.forEach(item => {
-                    const div = document.createElement('div');
-                    div.classList.add('shop-item');
+                    loadingMessage.style.display = 'none';  // Hide loading message
+                    shopContainer.innerHTML = '';  // Clear existing items
 
-                    div.innerHTML = `
-                        <img src="${item?.bundle?.image || item?.newDisplayAsset?.Images?.Featured || ''}" alt="${item.devName}">
-                        <h3>${item.devName}</h3>
-                        <p>Price: ${item.finalPrice} V-Bucks</p>
-                    `;
-                    shopContainer.appendChild(div);
+                    if (entries?.length) {
+                        entries.forEach(item => {
+                            const div = document.createElement('div');
+                            div.classList.add('shop-item');
+
+                            const imageUrl = item?.bundle?.image || item?.newDisplayAsset?.Images?.Featured || '';
+                            div.innerHTML = `
+                                <img src="${imageUrl}" alt="${item.devName}" loading="lazy">
+                                <h3>${item.devName}</h3>
+                                <p>Price: ${item.finalPrice} V-Bucks</p>
+                            `;
+                            shopContainer.appendChild(div);
+                        });
+                    } else {
+                        shopContainer.innerHTML = '<p>No shop items available at the moment.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching shop data:', error);
+                    document.getElementById('shop-container').innerHTML = '<p>Failed to load shop items. Please try again later.</p>';
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching shop data:', error);
-                document.getElementById('shop-container').innerHTML = '<p>Failed to load shop items.</p>';
-            });
+        });
     </script>
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="https://i.ibb.co/FgrzHd1/150078687-s-400-u-b1132aa2b336debc88472d7fc9fa71630b33bf18-v-4.png" alt="Fortnite Focus Logo">
+            <img src="https://i.ibb.co/FgrzHd1/150078687-s-400-u-b1132aa2b336debc88472d7fc9fa71630b33bf18-v-4.png" alt="Fortnite Focus Logo" loading="lazy">
         </div>
         <nav>
             <ul>
@@ -67,6 +85,9 @@
         <section id="shop">
             <h2>Shop</h2>
             <p>Browse the latest items in the Fortnite shop.</p>
+            <div id="loading-message">
+                <p>Loading shop items...</p>
+            </div>
             <div id="shop-container">
                 <!-- Shop data from API will be dynamically loaded here -->
             </div>
