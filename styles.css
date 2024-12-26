@@ -40,32 +40,24 @@ h2 {
     margin-bottom: 10px;
 }
 
-#news-container {
+#news-container, #shop-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-.news-item {
+.news-item, .shop-item {
     width: 30%;
     box-sizing: border-box;
     background-color: #eaeaea;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
-    transition: transform 0.2s ease;
-    border: 2px solid #ff4c4c;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.news-item:hover {
-    transform: translateY(-5px);
-}
-
-.news-item img {
+.news-item img, .shop-item img {
     max-width: 100%;
     height: auto;
-    border-radius: 5px;
 }
 
 footer {
