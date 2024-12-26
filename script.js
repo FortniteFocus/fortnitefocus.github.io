@@ -1,32 +1,31 @@
-// Fetch and display shop items
-fetch('https://fortnite-api.com/v2/shop')
+// Fetch and display news items
+fetch('https://fortnite-api.com/v2/news')
     .then(response => response.json())
     .then(data => {
-        const entries = data?.data?.entries || [];
-        const container = document.getElementById('shop-container');
+        const articles = data?.data?.articles || [];
+        const container = document.getElementById('news-container');
         container.innerHTML = '';
 
-        if (entries.length > 0) {
-            entries.forEach(item => {
-                const { devName, finalPrice, regularPrice, bundle, images } = item;
+        if (articles.length > 0) {
+            articles.forEach(article => {
+                const { title, summary, image } = article;
 
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('shop-item');
+                const articleDiv = document.createElement('div');
+                articleDiv.classList.add('news-item');
 
-                itemDiv.innerHTML = `
-                    <img src="${bundle?.image || images?.featured || ''}" alt="${devName}">
-                    <h3>${devName}</h3>
-                    <p class="price">Price: ${finalPrice} V-Bucks</p>
-                    ${finalPrice !== regularPrice ? `<p class="discounted">Was: ${regularPrice} V-Bucks</p>` : ''}
+                articleDiv.innerHTML = `
+                    <img src="${image || ''}" alt="${title}">
+                    <h3>${title}</h3>
+                    <p>${summary}</p>
                 `;
-                container.appendChild(itemDiv);
+                container.appendChild(articleDiv);
             });
         } else {
-            container.innerHTML = `<p>No items available in the shop at the moment. Please check back later.</p>`;
+            container.innerHTML = `<p>No news available at the moment. Please check back later.</p>`;
         }
     })
     .catch(error => {
-        console.error('Error fetching shop data:', error);
-        const container = document.getElementById('shop-container');
-        container.innerHTML = `<p>There was an error loading the shop. Please try again later.</p>`;
+        console.error('Error fetching news data:', error);
+        const container = document.getElementById('news-container');
+        container.innerHTML = `<p>There was an error loading the news. Please try again later.</p>`;
     });
